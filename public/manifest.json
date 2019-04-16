@@ -10,16 +10,16 @@
   "commands": {
     "_execute_browser_action": {
       "suggested_key": {
-        "mac": "Ctrl+B",
-        "windows": "Ctrl+B",
-        "linux": "Ctrl+B"
+        "mac": "Command+K",
+        "windows": "Ctrl+K",
+        "linux": "Ctrl+K"
       }
     },
     "_execute_page_action": {
       "suggested_key": {
-        "mac": "Ctrl+B",
-        "windows": "Ctrl+B",
-        "linux": "Ctrl+B"
+        "mac": "Command+K",
+        "windows": "Ctrl+K",
+        "linux": "Ctrl+K"
       }
     }
   },
