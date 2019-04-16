@@ -8,14 +8,19 @@
   ],
   "manifest_version": 2,
   "commands": {
-    "shortcut": {
+    "_execute_browser_action": {
       "suggested_key": {
-        "mac": "Command+B",
+        "mac": "Ctrl+B",
         "windows": "Ctrl+B",
         "linux": "Ctrl+B"
-      },
-      "description": "Do something",
-      "global": false
+      }
+    },
+    "_execute_page_action": {
+      "suggested_key": {
+        "mac": "Ctrl+B",
+        "windows": "Ctrl+B",
+        "linux": "Ctrl+B"
+      }
     }
   },
   "browser_action": {
