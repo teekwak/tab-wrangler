@@ -1,12 +1,12 @@
 /* global chrome */
 import React, { useState, useEffect } from 'react';
-// import logo from './logo.svg';
 import './App.css';
 
 // cool idea, badge could be number of total tabs open!
-// filtering function (fuzzy search...)
 
 function sortByTitleAndURL(a, b) {
+  // TODO: add sorting by URL
+  // TODO: add fuzzy search
   const aTitle = a.title.toLowerCase();
   const bTitle = b.title.toLowerCase();
 
@@ -39,27 +39,20 @@ export default function App() {
   }
 
   return (
-    <div className="App">
-      {/* <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header> */}
+    <div className="App" style={{ overflow: "auto"}}>
       <input
         autoFocus
         type="text"
         onChange={handleTextChange}
       />
-      {tabs.filter(tab => filterByText(tab, text)).map(tab => <div>{tab.title}</div>)}
+      {tabs.filter(
+        tab => filterByText(tab, text)
+      ).map(
+        tab => <div onClick={() => {
+          chrome.tabs.update(tab.id, { active: true });
+          chrome.windows.update(tab.windowId, { focused: true })
+        }}>{tab.title}</div>)
+      }
     </div>
   );
 }
