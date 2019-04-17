@@ -1,6 +1,8 @@
 /* global chrome */
 import React, { useState, useEffect } from 'react';
 import './App.css';
+import Form from 'react-bootstrap/Form';
+import Table from 'react-bootstrap/Table';
 
 // cool idea, badge could be number of total tabs open!
 
@@ -40,19 +42,24 @@ export default function App() {
 
   return (
     <div className="App" style={{ overflow: "auto"}}>
-      <input
+      <Form.Control
         autoFocus
         type="text"
+        placeholder="Search by Tab Title or URL"
         onChange={handleTextChange}
       />
-      {tabs.filter(
-        tab => filterByText(tab, text)
-      ).map(
-        tab => <div onClick={() => {
-          chrome.tabs.update(tab.id, { active: true });
-          chrome.windows.update(tab.windowId, { focused: true })
-        }}>{tab.title}</div>)
-      }
+      <Table hover>
+        <tbody>
+          {tabs.filter(
+            tab => filterByText(tab, text)
+          ).map(
+            tab => <tr><td onClick={() => {
+              chrome.tabs.update(tab.id, { active: true });
+              chrome.windows.update(tab.windowId, { focused: true })
+            }}>{tab.title}</td></tr>)
+          }
+        </tbody>
+      </Table>
     </div>
   );
 }
