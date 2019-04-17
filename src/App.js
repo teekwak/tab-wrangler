@@ -31,6 +31,8 @@ export default function App() {
 
   useEffect(() => {
     chrome.tabs.query({}, result => {
+      chrome.browserAction.setBadgeText({ text: result.length.toString() });
+      chrome.browserAction.setBadgeBackgroundColor({ color: '#008080' });
       result.sort(sortByTitleAndURL);
       setTabs(result);
     })
