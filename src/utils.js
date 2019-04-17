@@ -7,7 +7,8 @@ export function updateChromeBadgeText(text) {
 
 export function filterTabByText(tab, text) {
   const title = tab.title.toLowerCase();
-  return title.startsWith(text) || title.indexOf(text) > -1;
+  const url = tab.url.toLowerCase();
+  return title.indexOf(text) > -1 || url.indexOf(text) > -1;
 }
 
 export function sortByTitleAndURL(a, b) {

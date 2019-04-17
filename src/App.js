@@ -37,7 +37,7 @@ export default function App() {
             tab => <tr><td style={{textAlign: 'left'}} onClick={() => {
               chrome.tabs.update(tab.id, { active: true });
               chrome.windows.update(tab.windowId, { focused: true })
-            }}>{tab.title}</td></tr>)
+            }}><div>{tab.title}</div><div>{tab.url}</div></td></tr>)
           }
         </tbody>
       </Table>
