@@ -10,9 +10,23 @@ export default function App() {
 
   useEffect(() => {
     chrome.tabs.query({}, result => {
+      result.sort((a, b) => {
+        if(a.title < b.title) {
+          return -1
+        } else if (a.title > b.title) {
+          return 1
+        } else {
+          return 0
+        }
+      });
+
       setTabs(result);
     })
   }, []);
+
+  function handleTextChange(event) {
+    setText(event.target.value);
+  }
 
   return (
     <div className="App">
@@ -30,8 +44,11 @@ export default function App() {
           Learn React
         </a>
       </header>
-      <input type="text" />
-      {tabs.map(tab => <div>{tab.title}</div>)}
+      <input
+        type="text"
+        onChange={handleTextChange}
+      />
+      {tabs.filter(tab => tab.title.startsWith(text)).map(tab => <div>{tab.title}</div>)}
     </div>
   );
 }
