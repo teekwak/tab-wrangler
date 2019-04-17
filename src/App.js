@@ -1,17 +1,18 @@
 /* global chrome */
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
 // cool idea, badge could be number of total tabs open!
 export default function App() {
+  const [text, setText] = useState('');
+  const [tabs, setTabs] = useState([]);
+
   useEffect(() => {
-    chrome.tabs.query({}, tabs => {
-      tabs.forEach(tab => {
-        console.log(tab.title);
-      })
+    chrome.tabs.query({}, result => {
+      setTabs(result);
     })
-  });
+  }, []);
 
   return (
     <div className="App">
@@ -29,6 +30,8 @@ export default function App() {
           Learn React
         </a>
       </header>
+      <input type="text" />
+      {tabs.map(tab => <div>{tab.title}</div>)}
     </div>
   );
 }
