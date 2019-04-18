@@ -56,7 +56,7 @@ function TabRow({ tab }) {
           switchToTab(tab);
         }}
       >
-        <div>{tab.title}</div>
+        <div style={{fontWeight: 'bold'}}>{tab.title}</div>
         <div>{tab.url}</div>
       </td>
     </tr>
