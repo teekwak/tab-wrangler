@@ -12,8 +12,6 @@ export function filterTabByText(tab, text) {
 }
 
 export function sortByTitleAndURL(a, b) {
-  // TODO: add sorting by URL
-  // TODO: add fuzzy search
   const aTitle = a.title.toLowerCase();
   const bTitle = b.title.toLowerCase();
 
@@ -22,6 +20,20 @@ export function sortByTitleAndURL(a, b) {
   } else if (aTitle > bTitle) {
     return 1;
   } else {
-    return 0;
+    const aURL = a.url.toLowerCase()
+    const bURL = b.url.toLowerCase()
+
+    if(aURL < bURL) {
+      return -1;
+    } else if (aURL > bURL) {
+      return 1;
+    } else {
+      return 0;
+    }
   }
+}
+
+export function switchToTab(tab) {
+  chrome.tabs.update(tab.id, { active: true });
+  chrome.windows.update(tab.windowId, { focused: true });
 }

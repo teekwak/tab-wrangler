@@ -3,7 +3,12 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import Form from 'react-bootstrap/Form';
 import Table from 'react-bootstrap/Table';
-import { sortByTitleAndURL, filterTabByText, updateChromeBadgeText } from './utils';
+import {
+  filterTabByText,
+  sortByTitleAndURL,
+  switchToTab,
+  updateChromeBadgeText
+} from './utils';
 
 export default function App() {
   const [text, setText] = useState('');
@@ -34,13 +39,26 @@ export default function App() {
           {tabs.filter(
             tab => filterTabByText(tab, text)
           ).map(
-            tab => <tr><td style={{textAlign: 'left'}} onClick={() => {
-              chrome.tabs.update(tab.id, { active: true });
-              chrome.windows.update(tab.windowId, { focused: true })
-            }}><div>{tab.title}</div><div>{tab.url}</div></td></tr>)
-          }
+            tab => <TabRow tab={tab} />
+          )}
         </tbody>
       </Table>
     </div>
+  );
+}
+
+function TabRow({ tab }) {
+  return (
+    <tr>
+      <td
+        style={{textAlign: 'left'}}
+        onClick={() => {
+          switchToTab(tab);
+        }}
+      >
+        <div>{tab.title}</div>
+        <div>{tab.url}</div>
+      </td>
+    </tr>
   );
 }
