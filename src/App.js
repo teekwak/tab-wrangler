@@ -5,10 +5,10 @@ import Form from 'react-bootstrap/Form';
 import Table from 'react-bootstrap/Table';
 import {
   filterTabByText,
-  sortByTitleAndURL,
   switchToTab,
   updateChromeBadgeText
 } from './utils';
+import sortBy from 'lodash/sortBy';
 
 export default function App() {
   const [text, setText] = useState('');
@@ -17,7 +17,13 @@ export default function App() {
   useEffect(() => {
     chrome.tabs.query({}, result => {
       updateChromeBadgeText(result.length.toString());
-      result.sort(sortByTitleAndURL);
+      sortBy(
+        result,
+        [
+          item => item.title.toLowerCase(),
+          item => item.url.toLowerCase(),
+        ]
+      );
       setTabs(result);
     });
   }, []);
@@ -27,7 +33,7 @@ export default function App() {
   }
 
   return (
-    <div className="App" style={{ overflow: "auto"}}>
+    <div className="App" style={{ overflow: "auto" }}>
       <Form.Control
         autoFocus
         type="text"
@@ -51,12 +57,12 @@ function TabRow({ tab }) {
   return (
     <tr>
       <td
-        style={{textAlign: 'left'}}
+        style={{ textAlign: 'left' }}
         onClick={() => {
           switchToTab(tab);
         }}
       >
-        <div style={{fontWeight: 'bold'}}>{tab.title}</div>
+        <div style={{ fontWeight: 'bold' }}>{tab.title}</div>
         <div>{tab.url}</div>
       </td>
     </tr>
